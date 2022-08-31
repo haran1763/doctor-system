@@ -1,0 +1,15 @@
+grant {"file:C:/Program Files/Apache Software Foundation/Tomcat 9.0/webapps/doctor/WEB-INF/classes/authenticate.class" required
+Principal="C/Program Files/Apache Software Foundation/Tomcat 9.0/webapps/doctor/WEB-INF/classes/DaPrincipal.class"
+;};
+"admin" { 
+"java.io.FilePermission {admin.html} read,write" required ;
+};
+
+"doctors" { 
+"java.io.FilePermission view.jsp" required permission="read";
+};
+
+"patient" { 
+"java.io.FilePermission appointment.jsp" required permission="read,write";
+};
+

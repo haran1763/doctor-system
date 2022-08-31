@@ -1,0 +1,17 @@
+<%@ page import = "java.util.*"%>
+
+<!Doctype html>
+<html>
+<head>
+</head>
+<body>
+
+<form action="" method="POST">
+	<input type="hidden" id="tname" />
+	<input type="text" id="name" />
+	<input type="password" id="pass" />
+	<input type="submit" value="submit"/>
+</form>
+
+</body>
+</html>

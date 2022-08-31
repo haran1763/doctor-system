@@ -1,0 +1,64 @@
+<html>
+<head>
+<link rel="stylesheet" href="index.css">
+</head>
+<body>
+<header>
+<h1>Medicare System....</h1>
+<nav>
+<form action="./operations/display.jsp">
+<input type="hidden" name="tname" value="hospitals" />
+<input type="submit" id="button" value="Display Hospitals" />
+</form>
+
+<form action="./operations/display.jsp">
+<input type="hidden" name="tname" value="doctors" />
+<input type="submit" id="button" value="Display doctors" />
+</form>
+
+<form action="./operations/create.jsp">
+<input type="submit" id="button" value="Create doctors" />
+</form>
+
+<form action="./operations/createho.jsp">
+<input type="submit" id="button" value="Create hospitals" />
+</form>
+
+<form action="./operations/updateho.jsp">
+<input type="submit" id="button" value="Update hospitals" />
+</form>
+
+<form action="./operations/update.jsp">
+<input type="submit" id="button" value="Update doctors" />
+</form>
+
+<form action="./operations/deleteho.jsp">
+<input type="submit" id="button" value="Delete hospitals" />
+</form>
+
+<form action="./operations/delete.jsp">
+<input type="submit" id="button" value="Delete doctors" />
+</form>
+
+</nav>
+</header>
+
+
+<script>
+	document.getElementById('button').addEventListener('click',display);
+	function display(){
+		var xhr = new XMLHttpRequest();
+		xhr.open()
+	}
+
+</script>
+
+<div>
+	<h2>Welcome Admin....Feel Free To Work With Your App.....</h2>
+</div>
+
+
+
+
+</body>
+</html>

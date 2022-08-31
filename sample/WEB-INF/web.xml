@@ -1,0 +1,125 @@
+<web-app>
+<servlet>
+	<servlet-name>Doctors</servlet-name>
+	<servlet-class>Doctors</servlet-class>
+</servlet>
+<servlet>
+	<servlet-name>Display</servlet-name>
+	<servlet-class>Display</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>Display</servlet-name>
+	<url-pattern>/Display</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>Create</servlet-name>
+	<servlet-class>Create</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>Create</servlet-name>
+	<url-pattern>/create</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>Update</servlet-name>
+	<servlet-class>Update</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>Update</servlet-name>
+	<url-pattern>/update</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>Delete</servlet-name>
+	<servlet-class>Delete</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>Delete</servlet-name>
+	<url-pattern>/delete</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>Authenticate</servlet-name>
+	<servlet-class>Authenticate</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>Authenticate</servlet-name>
+	<url-pattern>/authenticate</url-pattern>
+</servlet-mapping>
+
+<servlet-mapping>
+	<servlet-name>Doctors</servlet-name>
+	<url-pattern>/Doctors</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>Patients</servlet-name>
+	<servlet-class>Patients</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>Patients</servlet-name>
+	<url-pattern>/patients</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>Appointment</servlet-name>
+	<servlet-class>Appointment</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>Appointment</servlet-name>
+	<url-pattern>/appointment</url-pattern>
+</servlet-mapping>
+<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Admin</web-resource-name>
+			<url-pattern>/Admin/admin.html</url-pattern>
+			<url-pattern>/Display</url-pattern>
+			<url-pattern>/create</url-pattern>
+			<url-pattern>/update</url-pattern>
+			<url-pattern>/delete</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Doctor</web-resource-name>
+			<url-pattern>/Doctors</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>doctors</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>patient</web-resource-name>
+			<url-pattern>/patients.html</url-pattern>
+			<url-pattern>/patients</url-pattern>
+			<url-pattern>/appointment.jsp</url-pattern>
+			<url-pattern>/book.jsp</url-pattern>
+			<url-pattern>/view.jsp</url-pattern>
+			<url-pattern>/appointment</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>patient</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<realm-name>file</realm-name>
+		<form-login-config>
+			<form-login-page>/Admin/AdminLogin.jsp</form-login-page>
+			<form-error-page>/error.html</form-error-page>
+		</form-login-config>
+	</login-config>
+
+	
+</web-app>
