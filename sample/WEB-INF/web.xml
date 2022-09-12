@@ -47,6 +47,14 @@
 	<servlet-name>Authenticate</servlet-name>
 	<url-pattern>/authenticate</url-pattern>
 </servlet-mapping>
+<servlet>
+	<servlet-name>DaCallbackHandler</servlet-name>
+	<servlet-class>DaCallbackHandler</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>DaCallbackHandler</servlet-name>
+	<url-pattern>/daCallbackHandler</url-pattern>
+</servlet-mapping>
 
 <servlet-mapping>
 	<servlet-name>Doctors</servlet-name>
@@ -69,6 +77,14 @@
 <servlet-mapping>
 	<servlet-name>Appointment</servlet-name>
 	<url-pattern>/appointment</url-pattern>
+</servlet-mapping>
+<servlet>
+	<servlet-name>logout</servlet-name>
+	<servlet-class>logout</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>logout</servlet-name>
+	<url-pattern>/logout</url-pattern>
 </servlet-mapping>
 <security-constraint>
 		<web-resource-collection>

@@ -1,12 +1,27 @@
 import java.io.*;
-import javax.security.auth.login.LoginContext;
+import java.sql.*;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 
 public class Authenticate extends HttpServlet{
 
-    public static LoginContext loginContext = null;
-    static String otp;
+    String jdbcURL = "jdbc:postgresql://localhost:5432/managementDB";
+    String username = "postgres";
+    String password = "1763";
+    Connection conn = null;
+    Statement stmt = null;
+    ResultSet rs = null;
+    public Authenticate(){
+        try {
+            conn = DriverManager.getConnection(jdbcURL, username, password);
+            stmt = conn.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String otp;
     static String tname,name,pass;
     public void service(HttpServletRequest req,HttpServletResponse res) throws IOException,ServletException{
         System.out.println(req.getParameter("tname")+ " " +req.getParameter("name")+ " " + req.getParameter("pass"));
@@ -14,14 +29,24 @@ public class Authenticate extends HttpServlet{
         pass = req.getParameter("pass");
         tname = req.getParameter("tname");
         try {
-            Sendmail sm = new Sendmail();
-            otp = sm.main(name);
+            data(tname);
+            while(rs.next()){
+                if(rs.getString(1).equals(name) && rs.getString(2).equals(pass) ){
+                    res.sendRedirect("./Admin/OTP.jsp");
+                }
+            }
         } catch (Exception e) {
-            //TODO: handle exception
-            e.printStackTrace();
-        }
-            System.out.println("The otp in authenticate " + otp);
-            res.sendRedirect("./Admin/OTP.html"); 
-      
+            // TODO: handle exception
+        }            
+}
+
+void data(String tname){
+    try {
+            String query = String.format("select email,password from %s;",tname);
+            rs = stmt.executeQuery(query);
+    } catch (SQLException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
 }
 }

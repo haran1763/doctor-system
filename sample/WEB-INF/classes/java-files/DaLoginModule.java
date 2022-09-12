@@ -7,30 +7,38 @@ import javax.security.auth.callback.NameCallback;
 import javax.security.auth.login.LoginException;
 import javax.security.auth.spi.LoginModule;
 
+
 import java.sql.*;
 
 public class DaLoginModule implements LoginModule {
+    
+
     
     private CallbackHandler callbackHandler = null;
     public Subject subject = null;
     public DaPrincipal daPrincipal = null;
 	public userPrincipal user = null;
-    String name,pass,tname;
-    Object[] generator= null;
+    String name,pass,otp,tname;
+    totp TOTP = new totp();
     String jdbcURL = "jdbc:postgresql://localhost:5432/managementDB";
     String username = "postgres";
     String password = "1763";
     Connection conn = null;
     Statement stmt = null;
     ResultSet rs = null;
+    Map sharedState;
+
+
+
     @Override
     public void initialize(Subject subject, CallbackHandler callbackHandler, Map<String, ?> sharedState,
             Map<String, ?> options) {   
         this.subject = subject;
         this.callbackHandler = callbackHandler;
-        name = Authenticate.name;
-        pass = Authenticate.pass;
-        tname = Authenticate.tname;
+        this.name = Authenticate.name;
+        this.pass = Authenticate.pass;
+        this.tname = Authenticate.tname;
+        this.sharedState = sharedState;
         try {
             conn = DriverManager.getConnection(jdbcURL, username, password);
             stmt = conn.createStatement();
@@ -38,42 +46,45 @@ public class DaLoginModule implements LoginModule {
             e.printStackTrace();
         }
 
+
     }
 
     @Override
     public boolean login() throws LoginException {
+        System.out.println(callbackHandler);
 
         boolean flag = false;
         Callback[] callbackArray = new Callback[1];
         callbackArray[0] = new NameCallback("username");
-        // callbackArray[1] = new PasswordCallback("password",false);
+
+      
+
         try {
             callbackHandler.handle(callbackArray);
-            String username = ((NameCallback) callbackArray[0]).getName();
-            System.out.println(username);
-            System.out.println("Inside Login module " + name + " " + pass + " " + tname);
+            otp = ((NameCallback) callbackArray[0]).getName();
+            System.out.println("Inside Login module " + otp);
+            System.out.println(TOTP.main());
+            
 
-            // && rs.getString(2).equals(pass)
-            System.out.println("The auth otp is " + Authenticate.otp);
-
-            data(tname);
-                while(rs.next()){
-                    if(rs.getString(1).equals(name) && rs.getString(2).equals(pass) ){
-                        if(username.equals(Authenticate.otp)){
-                            daPrincipal  = new DaPrincipal(tname);
-                            user  = new userPrincipal(name);
-                            flag = true;
-                            break;
-                        }
-                        else{
-                            System.out.println("wrong otp");
-                        }
+            //check the otp with google authenticator
+                    if(otp.equals(TOTP.main())){
+                        daPrincipal  = new DaPrincipal(tname);
+                        user  = new userPrincipal(name);
+                        flag = true;
                     }
-                }
-        } catch (Exception e) {
+                    else{
+                        System.out.println("wrong otp");
+                    }
+            
+
+
+
+            } catch (Exception e) {
             System.out.println("Error in login");
             e.printStackTrace();
         }
+        System.out.println("success in Dalogin module " + flag);
+        System.out.println(sharedState);
         return flag;
     }
 
@@ -86,9 +97,7 @@ public class DaLoginModule implements LoginModule {
             subject.getPrincipals().add(user);
             System.out.println(subject);    
             flag =true;
-        }
-
-        
+        }       
         return flag;
     }
 

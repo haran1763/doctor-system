@@ -5,19 +5,23 @@ import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.NameCallback;
 import javax.security.auth.callback.PasswordCallback;
 import javax.security.auth.callback.UnsupportedCallbackException;
+import javax.servlet.http.HttpServlet;
 
-public class DaCallbackHandler implements CallbackHandler{
+public class DaCallbackHandler extends HttpServlet implements CallbackHandler{
 
-    private String tname=null,name=null,pass = null;
+    static String tname,name,pass;
 
     @Override
     public void handle(Callback[] callbacks) throws IOException, UnsupportedCallbackException {
-        NameCallback nameCallback = (NameCallback) callbacks[0];
-        nameCallback.setName(name);
-        PasswordCallback password = (PasswordCallback) callbacks[1];
-        password.setPassword(pass.toCharArray());
-        NameCallback tnameCallback = (NameCallback) callbacks[2];
-        tnameCallback.setName(tname);
+        System.out.println("inside DacallBack Handler");
+       
+            NameCallback nameCallback = (NameCallback) callbacks[0];
+            nameCallback.setName(name);
+            PasswordCallback password = (PasswordCallback) callbacks[1];
+            password.setPassword(pass.toCharArray());
+            // NameCallback tnameCallback = (NameCallback) callbacks[2];
+            // tnameCallback.setName(userData.getTname());
     }
-    
+
+   
 }

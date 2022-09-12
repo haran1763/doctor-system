@@ -19,7 +19,7 @@ public class Doctors extends HttpServlet{
     try {
                 dbConnection db = new dbConnection();
                 Connection conn = db.dbConnect();
-                String name = Authenticate.name;
+                String name = req.getUserPrincipal().getName();
                 System.out.println(name);
                 PrintWriter oWriter = res.getWriter();
                 System.out.println("Inside Doctors module");

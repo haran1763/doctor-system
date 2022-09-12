@@ -8,6 +8,6 @@
 	/>
 <Realm className="org.apache.catalina.realm.JAASRealm"
                 appName="Jaas"
-    userClassNames="DaPrincipal"
+    userClassNames="userPrincipal"
      roleClassNames="DaPrincipal"/>
 </Context>
